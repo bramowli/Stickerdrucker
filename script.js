@@ -1,6 +1,5 @@
-let selected_device;
 let devices = [];
-let zebraPrinter = null;
+let selected_device = null;
 
 let printTextButton = document.getElementById("print-text")
 printTextButton.addEventListener("click", reactionPrintText);
@@ -18,7 +17,7 @@ function reactionPrintPRN() {
     document.getElementById("ausgabe").textContent = "PRN Datei drucken!"
 }
 
-function initZebraPrinter() {
+function initselected_device() {
     if (typeof BrowserPrint === "undefined") {
         console.warn("BrowserPrint nicht geladen.");
         return;
@@ -56,7 +55,7 @@ function initZebraPrinter() {
     })
 
     /*BrowserPrint.getDefaultDevice("printer", function (printer) {
-        zebraPrinter = printer;
+        selected_device = printer;
         console.log("🖨️ Zebra-Standarddrucker erkannt:", printer.name);
     }, function (err) {
         console.error("❌ Fehler beim Zebra-Druckerabruf:", err);
@@ -64,7 +63,7 @@ function initZebraPrinter() {
 }
 
 function printPRN(filePath) {
-    if (!zebraPrinter) {
+    if (!selected_device) {
         console.warn("❗ Zebra-Drucker ist nicht initialisiert.");
         return;
     }
@@ -72,7 +71,7 @@ function printPRN(filePath) {
     fetch(filePath)
         .then((res) => res.text())
         .then((content) => {
-            zebraPrinter.send(content,
+            selected_device.send(content,
                 () => console.log("✅ PRN Gedruckt!"),
                 err => console.error("❌ Druckfehler:", err)
             );
@@ -81,7 +80,7 @@ function printPRN(filePath) {
 }
 
 function printText(text) {
-    if (!zebraPrinter) {
+    if (!selected_device) {
         console.warn("❗ Zebra-Drucker ist nicht initialisiert.");
         return;
     }
@@ -98,7 +97,7 @@ function printText(text) {
 ^FD${cleaned}^FS
 ^XZ`;
 
-    zebraPrinter.send(zpl,
+    selected_device.send(zpl,
         () => console.log("✅ Gedruckt:\n" + text),
         err => console.error("❌ Druckfehler:", err)
     );
@@ -116,5 +115,5 @@ function replaceUmlauts(text) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    initZebraPrinter();
+    initselected_device();
 });
