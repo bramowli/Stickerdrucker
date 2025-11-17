@@ -1,3 +1,7 @@
+let selected_device;
+let devices = [];
+let zebraPrinter = null;
+
 let printTextButton = document.getElementById("print-text")
 printTextButton.addEventListener("click", reactionPrintText);
 
@@ -14,28 +18,49 @@ function reactionPrintPRN() {
     document.getElementById("ausgabe").textContent = "PRN Datei drucken!"
 }
 
-let zebraPrinter = null;
-
 function initZebraPrinter() {
     if (typeof BrowserPrint === "undefined") {
         console.warn("BrowserPrint nicht geladen.");
         return;
     }
 
-    BrowserPrint.getLocalDevices(function (deviceList) {
-        console.log(deviceList);
-        for (const device of deviceList) {
-            console.log(device.name);
-            console.log(device);
-        }
-    });
+    //Get the default device from the application as a first step. Discovery takes longer to complete.
+    BrowserPrint.getDefaultDevice("printer", function (device) {
 
-    BrowserPrint.getDefaultDevice("printer", function (printer) {
+        //Add device to list of devices and to html select element
+        selected_device = device;
+        devices.push(device);
+        var html_select = document.getElementById("selected_device");
+        var option = document.createElement("option");
+        option.text = device.name;
+        html_select.add(option);
+
+        //Discover any other devices available to the application
+        BrowserPrint.getLocalDevices(function (device_list) {
+            for (var i = 0; i < device_list.length; i++) {
+                //Add device to list of devices and to html select element
+                var device = device_list[i];
+                if (!selected_device || device.uid != selected_device.uid) {
+                    devices.push(device);
+                    var option = document.createElement("option");
+                    option.text = device.name;
+                    option.value = device.uid;
+                    html_select.add(option);
+                }
+            }
+
+        }, function () { alert("Error getting local devices") }, "printer");
+
+    }, function (error) {
+        alert(error);
+    })
+
+    /*BrowserPrint.getDefaultDevice("printer", function (printer) {
         zebraPrinter = printer;
         console.log("🖨️ Zebra-Standarddrucker erkannt:", printer.name);
     }, function (err) {
         console.error("❌ Fehler beim Zebra-Druckerabruf:", err);
-    });
+    });*/
 }
 
 function printPRN(filePath) {
