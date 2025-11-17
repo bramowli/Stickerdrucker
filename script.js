@@ -22,6 +22,14 @@ function initZebraPrinter() {
         return;
     }
 
+    BrowserPrint.getLocalDevices(function (deviceList) {
+        console.log(deviceList);
+        for (const device of deviceList) {
+            console.log(device.name);
+            console.log(device);
+        }
+    });
+
     BrowserPrint.getDefaultDevice("printer", function (printer) {
         zebraPrinter = printer;
         console.log("🖨️ Zebra-Standarddrucker erkannt:", printer.name);
