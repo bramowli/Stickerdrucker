@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stickermaschine.css">
+    <title>Sticker drucken</title>
+    <script src="steuerung.js" defer></script>
+</head>
+<body data-screen="druck">
+    <div id="box">
+        <div class="page final-screen">
+
+            <!-- Sticker-Vorschau -->
+            <img src="AntiNaziSticker/placeholder.png" class="sticker-preview" alt="Sticker Vorschau">
+
+
+            
+            <!-- Button wie Start-Button, nur mit anderem Text -->
+            <button class="start-button print-button" >
+                DRUCKEN
+            </button>
+
+        <!-- Vollbild-Overlay für die Druck-Animation -->
+        <div id="print-overlay" class="print-overlay" hidden>
+            <div class="print-window">
+        <div class="printer">
+            <div class="printer-top"></div>
+            <div class="printer-body">
+            <div class="printer-slot"></div>
+            <div class="printer-paper"></div>
+            </div>
+
+            <!-- Zahnräder links/rechts -->
+            <div class="printer-gear gear-left"></div>
+            <div class="printer-gear gear-right"></div>
+
+            <!-- kleine „Arme“ -->
+            <div class="printer-arm arm-left"></div>
+            <div class="printer-arm arm-right"></div>
+
+            <!-- Funken / Farbkleckse -->
+            <div class="printer-spark spark-1"></div>
+            <div class="printer-spark spark-2"></div>
+            <div class="printer-spark spark-3"></div>
+
+            <p class="printer-text">Sticker wird gedruckt…</p>
+            </div>
+        </div>
+        </div>
+
+        </div>
+    </div>
+</body>
+</html>

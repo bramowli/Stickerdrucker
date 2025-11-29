@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stickermaschine.css">
+    <script src="steuerung.js" defer></script>
+    <title>Modus wählen</title>
+</head>
+<body data-screen="mode">
+    <div id="box">
+        <div class="page second-screen">
+
+            <!-- oberer grauer Bereich -->
+            <div class="mode-panel-top-overlay">
+                <span id="mod-1" class="mode-text mode-text-light">Random</span>
+            </div>
+
+            <div class="mode-bottom">
+            <button class="arrow arrow-up" aria-label="nach oben"></button>
+
+            <div class="mode-panel-bottom">
+               <span id="mod-2" class="mode-text mode-text-dark">Selber machen</span>
+            </div>
+
+            <button class="arrow arrow-down" aria-label="nach unten"></button>
+            </div>
+
+            <!-- Bestätigung -->
+            <p class="confirm-text">
+                bestätige mit
+                <button class="confirm-button" aria-label="bestätigen"></button>
+            </p>
+
+        </div>
+    </div>
+</body>
+</html>

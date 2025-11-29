@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stickermaschine.css">
+    <title>Motiv-Farbe wählen</title>
+    <script src="steuerung.js" defer></script>
+</head>
+<body data-screen="farbe">
+    <div id="box">
+        <!-- nutzt ALLES, was du schon hast: page + second-screen + eigener Screen-Name -->
+        <div class="page second-screen color-screen">
+
+            <!-- schwarzer Banner wie auf den Wahl-Seiten -->
+            <div class="phrase-header">
+                <span class="phrase-header-text">Hintergrund-Farbe</span>
+            </div>
+
+            <!-- obere Hälfte grau + "Weiß" -->
+            <div class="mode-panel-top-overlay">
+                <span id="color-1" class="mode-text mode-text-light">Weiß</span>
+            </div>
+
+            <!-- Mitte: Pfeile + "Schwarz" wie im Modus-Screen -->
+            <div class="mode-bottom">
+                <button class="arrow arrow-up" aria-label="weiß auswählen"></button>
+
+                <span id="color-2" class="mode-text mode-text-dark">Schwarz</span>
+
+                <button class="arrow arrow-down" aria-label="schwarz auswählen"></button>
+            </div>
+
+            <!-- gleicher Confirm-Bereich wie auf den anderen Seiten -->
+            <p class="confirm-text">
+                bestätige mit
+                <button class="confirm-button" aria-label="Farbe bestätigen"></button>
+            </p>
+
+        </div>
+    </div>
+</body>
+</html>

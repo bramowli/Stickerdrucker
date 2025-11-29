@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stickermaschine.css">
+    <script src="steuerung.js" defer></script>
+    <title>Spruch wählen</title>
+</head>
+<body data-screen="spruch">
+    <div id="box">
+        <div class="page phrase-screen">
+
+            <!-- schwarzer Balken oben -->
+            <div class="phrase-header">
+                <span class="phrase-header-text">Wähle einen Spruch</span>
+            </div>
+
+            <!-- Pfeil hoch -->
+            <button class="arrow arrow-up" aria-label="vorheriger Spruch"></button>
+
+            <!-- grauer Spruch-Balken -->
+            <div class="phrase-box">
+                <span class="phrase-text">Spruch gegen Nazis</span>
+            </div>
+
+            <!-- Pfeil runter -->
+            <button class="arrow arrow-down" aria-label="nächster Spruch"></button>
+
+            <!-- Bestätigung unten -->
+            <p class="confirm-text">
+            bestätige mit
+            <button class="confirm-button" aria-label="Spruch bestätigen"></button>
+            </p>
+
+        </div>
+    </div>
+</body>
+</html>

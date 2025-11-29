@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stickermaschine.css">
+    <script src="steuerung.js" defer></script>
+    <title>Sybol wählen</title>
+</head>
+<body data-screen="symbol">
+    <div id="box">
+        <div class="page symbol-screen">
+
+            <!-- schwarzer Balken oben -->
+            <div class="phrase-header">
+                <span class="phrase-header-text">Wähle ein Symbol</span>
+            </div>
+
+            <!-- Pfeil hoch -->
+             <button class="symbol-arrow symbol-arrow-up" aria-label="vorheriges Symbol"></button>
+
+            <!-- grauer Spruch-Balken -->
+            <div class="symbol-box">
+                 <img src="symbol1.png" alt="Ausgewähltes Symbol" class="symbol-image">
+            </div>
+
+            <!-- Pfeil runter -->
+            <button class="symbol-arrow symbol-arrow-down" aria-label="nächstes Symbol"></button>
+
+            <!-- Bestätigung unten -->
+            <p class="confirm-text">
+                bestätige mit
+                <button class="confirm-button" aria-label="Symbol bestätigen"></button>
+            </p>
+
+        </div>
+    </div>
+</body>
+</html>
