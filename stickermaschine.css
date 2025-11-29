@@ -370,6 +370,18 @@ html, body {
   image-rendering: pixelated;  /* bleibt im Retro-Look */
 }
 
+/* for printing the sticker */
+.hidden-preview {
+  visibility: hidden;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  transform: translateY(-100%) rotate(90deg);
+  transform-origin: left bottom;
+  width: 120px;
+  height: 212px;
+}
+
 /* Druck-Button kann (optional) minimal kleiner sein */
 .print-button {
   font-size: 6rem;             /* wenn dir 8rem zu fett ist */

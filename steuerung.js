@@ -134,6 +134,12 @@ if (initialScreen === 'druck' || initialScreen === 'done') {
     stickerImg.src = path;
     console.log('Sticker-Pfad gesetzt:', path);
   }
+  const hiddenStickerImg = document.querySelector('.hidden-preview');
+  if (hiddenStickerImg) {
+    const path = getStickerPath();
+    hiddenStickerImg.src = path;
+    console.log('Versteckter Sticker-Pfad gesetzt:', path);
+  }
 }
 
 function bumpArrow(selector) {
@@ -400,21 +406,18 @@ function startPrintAndRedirect() {
     overlay.hidden = false;
   }
 
+  // const hiddenStickerImg = document.querySelector('.hidden-preview');
+
   document.querySelector('style').textContent =
   `@media print {
       * { visibility: hidden;
           margin: 0;
-          padding: 0;}
-      img {
+          padding: 0;
+      }
+      .hidden-preview {
         visibility: visible;
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        transform:translateY(-100%) rotate(90deg);
-      transform-origin: left bottom;
         display: block;
-        width: 120px;
-        height: 212px;}
+      }
     }`;
 
   if (window.print) {
