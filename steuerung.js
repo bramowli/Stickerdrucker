@@ -435,12 +435,12 @@ function startPrintAndRedirect() {
 
 // Text größer/kleiner machen (Modus & Farbe)
 function highlightText(id, oldElement1, oldElement2) {
-  oldElement1.style.fontSize = '8rem';
-  oldElement2.style.fontSize = '8rem';
+  oldElement1.style.fontSize = 'var(--fs-lg)';
+  oldElement2.style.fontSize = 'var(--fs-lg)';
 
   const newElement = document.getElementById(id);
   if (newElement) {
-    newElement.style.fontSize = '10rem';
+    newElement.style.fontSize = 'var(--fs-xl)';
     highlightedText = id;
   }
 }

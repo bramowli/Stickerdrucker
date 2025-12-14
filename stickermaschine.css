@@ -2,8 +2,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
 
-* {
-  box-sizing: border-box;
+* { box-sizing: border-box; }
+
+:root{
+  /* Spacing */
+  --sp: clamp(12px, 2.2vh, 36px);
+  --sp-lg: clamp(24px, 6vh, 140px);
+
+  /* Fonts (größer auf großen Screens) */
+  --fs-xl: clamp(4rem, 7.5vw, 14rem);
+  --fs-lg: clamp(3rem, 6vw, 11rem);
+  --fs-md: clamp(2rem, 4.2vw, 7.5rem);
+
+  /* Phrase (Spruchwahl) – insgesamt größer */
+  --fs-phrase: clamp(2.6rem, 4.2vw, 8.2rem);     /* Schrift Spruch */
+  --phrase-pad-y: clamp(1.2rem, 1.8vw, 3.2rem);   /* Box höher */
+  --phrase-pad-x: clamp(3rem, 4.2vw, 9rem);       /* Box breiter */
+
+  /* Pfeile skalieren + mehr Abstand bei Spruchwahl */
+  --arrow-w: clamp(52px, 3.6vw, 140px);
+  --arrow-h: clamp(34px, 2.6vw, 100px);
+  --arrow-shadow: clamp(4px, 0.8vw, 12px);
+
+  /* in Spruchwahl: Abstand der Pfeile zur Mitte (mehr als vorher) */
+  --arrowOffsetPhrase: clamp(18vh, 22vh, 26vh);   /* mehr Abstand: Pfeile weiter weg vom Spruch */
+
+  /* Confirm-Kreis skaliert */
+  --confirm-dot: clamp(22px, 1.6vw, 44px);
 }
 
 html, body {
@@ -16,14 +41,10 @@ html, body {
   min-height: 100vh;
   width: 100%;
   position: relative;
-
-  /* Grundfarbe (falls Bild kurz nicht geladen ist) */
   background-color: #d8d8d8;
-
-  /* dein Noise-Bild – Dateiname/Ordner ggf. anpassen */
   background-image: url("noise-bg.png");
-  background-repeat: repeat;    /* falls es ein kachelbares Muster ist */
-  background-size: auto;        /* oder 'cover', wenn es Vollbild sein soll */
+  background-repeat: repeat;
+  background-size: auto;
 
   display: flex;
   justify-content: center;
@@ -41,25 +62,25 @@ html, body {
   align-items: center;
   text-align: center;
   font-family: "Jersey 10", sans-serif;
-  width: 100%;              /* <– neu, wichtig */
+  width: 100%;
 }
 
-/* Überschrift im 8-Bit-Style */
+/* Überschrift */
 .title {
-  margin: 0 0 4rem;
+  margin: 0 0 var(--sp-lg);
   text-align: center;
   color: #000;
   font-family: "Jersey 10", sans-serif;
-  font-size: 10rem;   /* bei Bedarf größer/kleiner machen */
+  font-size: var(--fs-xl);
   line-height: 1.4;
 }
 
-/* Retro-8-Bit-Button im pixel2-Look */
+/* Start-Button */
 .start-button {
-  padding: 1.8rem 5rem;
+  padding: clamp(12px, 2.2vh, 28px) clamp(28px, 5vw, 90px);
   display: inline-block;
   font-family: "Jersey 10", sans-serif;
-  font-size: 8rem;
+  font-size: var(--fs-lg);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: #ffffff;
@@ -67,10 +88,7 @@ html, body {
   cursor: pointer;
   position: relative;
   z-index: 2;
-
 }
-
-/* äußerer Pixel-Rand (grober Layer) */
 .start-button::before {
   content: "";
   position: absolute;
@@ -81,8 +99,6 @@ html, body {
   background: #000;
   z-index: -2;
 }
-
-/* innerer Pixel-Rand (feiner Layer) */
 .start-button::after {
   content: "";
   position: absolute;
@@ -93,121 +109,96 @@ html, body {
   background: #000;
   z-index: -1;
 }
-
-/* Hover/Active wie gehabt */
-.start-button:hover {
-  transform: translate(3px, 3px);
-}
-
-.start-button:active {
-  transform: translate(6px, 6px);
-  box-shadow: 4px 4px 0 #000;
-}
-
-/* Klasse für „per Tastatur gedrückt“ */
-.start-button--pressed {
-  transform: translate(6px, 6px);
-  box-shadow: 4px 4px 0 #000;
-}
-
-/* wenn du für den DRUCKEN-Button dasselbe willst */
-.print-button--pressed {
-  transform: translate(6px, 6px);
-  box-shadow: 4px 4px 0 #000;
-}
+.start-button:hover { transform: translate(3px, 3px); }
+.start-button:active { transform: translate(6px, 6px); box-shadow: 4px 4px 0 #000; }
+.start-button--pressed { transform: translate(6px, 6px); box-shadow: 4px 4px 0 #000; }
+.print-button--pressed { transform: translate(6px, 6px); box-shadow: 4px 4px 0 #000; }
 
 /* ===== Screen 2: Modus-Auswahl ===== */
 
 .second-screen {
   position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 50vh 50vh;
+  justify-items: stretch;
+  align-items: stretch;
 }
 
-/* obere Hälfte: halbtransparentes Overlay */
 .mode-panel-top-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 50vh;                       /* genau obere Hälfte */
-  background: rgba(0, 0, 0, 0.25);    /* dunkel, aber Hintergrund schimmert durch */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  grid-row: 1;
+  width: 100vw;
+  height: 100%;
+  justify-self: stretch;
+  align-self: stretch;
+  background: rgba(0,0,0,0.25);
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-/* Unterer Block (Pfeile + "Selber machen") */
 .mode-bottom {
-  margin-top: 540px;            /* startet knapp unter der oberen Hälfte */
-  display: flex;
+  grid-row: 2;
+  margin-top: 0;
+  width: 100%;
+  height: 100%;
+  display:flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1.8rem;
+  align-items:center;
+  justify-content:center;
+  gap: 0;
 }
 
-/* Texte im Display */
+#mod-1{ font-size: var(--fs-lg); color: #fff; }
+#mod-2{ font-size: var(--fs-lg); color: #000; font-weight: 700; margin-top: 0; }
+
 .mode-text {
   font-family: "Jersey 10", sans-serif;
-  font-size: 8rem;
-  transition: font-size 0.3s ease; /* sanfte Übergänge */
+  font-size: var(--fs-lg);
+  transition: font-size 0.3s ease;
 }
+.mode-text-light { color: #ffffff; }
+.mode-text-dark { color: #000000; font-weight: 700; }
+.mode-text:hover { cursor: pointer; }
 
-.mode-text-light {
-  color: #ffffff;
-}
-
-.mode-text-dark {
-  color: #000000;
-  font-weight: 700;
-  margin-top: 170px;                   /* kein eigener margin-top mehr */
-}
-
-.mode-text:hover {
-  cursor: pointer;
-}
-
-/* Pfeil-Buttons – mittig, 8-Bit-Look über clip-path */
+/* Pfeile */
 .arrow {
-  position: absolute;          /* unabhängig vom restlichen Layout */
-  left: 50%;                   /* horizontal zentrieren */
+  position: absolute;
+  left: 50%;
   transform: translateX(-50%);
-  width: 52px;                 /* Breite des Pfeils */
-  height: 32px;                /* Höhe des Pfeils */
-  background: #f8f8f8;         /* Pfeilfarbe */
+  width: var(--arrow-w);
+  height: var(--arrow-h);
+  background: #f8f8f8;
   border: none;
   cursor: pointer;
   z-index: 2;
-  box-shadow: 7px 7px 0 #000;  /* harter Schatten → 8-Bit-Rand */
+  box-shadow: var(--arrow-shadow) var(--arrow-shadow) 0 #000;
 }
-
-/* ▲ nach oben */
 .arrow-up {
-  background: #000000; 
-  top: 40vh;                   /* <<< HIER Y-Position des oberen Pfeils ändern */
+  background: #000000;
+  top: calc(48vh - clamp(80px, 9vh, 140px));
   clip-path: polygon(50% 0, 0 100%, 100% 100%);
 }
-
-/* ▼ nach unten */
 .arrow-down {
-  top: 56vh;                   /* <<< HIER Y-Position des unteren Pfeils ändern */
+  top: calc(50vh + clamp(30px, 5vh, 80px));
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 
-/* Text „bestätige mit“ */
+/* Confirm */
 .confirm-text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: clamp(18px, 3vh, 50px);
+  margin-top: 0;
   margin-top: 30px;
-  font-size: 5rem;
+  font-size: clamp(2rem, 3.2vw, 6.5rem);
   color: #000;
 }
-
-/* Roter Kreis als Button */
 .confirm-button {
-  width: 26px;
-  height: 26px;
+  width: var(--confirm-dot);
+  height: var(--confirm-dot);
   margin-left: 8px;
   border-radius: 50%;
   border: none;
@@ -220,157 +211,156 @@ html, body {
 
 .phrase-screen {
   position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
   align-items: center;
-  justify-content: flex-start;
+  justify-items: center;
 }
 
-/* schwarzer Header-Balken oben */
+/* Header */
 .phrase-header {
+  grid-row: 1;
+  align-self: start;
   margin-top: 0rem;
   padding: 1.5rem 4rem;
   background: #000;
-  border-radius: 0 0 21px 21px;    /* oben links eckig, Rest rundlich */
+  border-radius: 0 0 21px 21px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
-
 .phrase-header-text {
   font-family: "Jersey 10", sans-serif;
-  font-size: 5.5rem;
+  font-size: var(--fs-md);
   color: #fff;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   white-space: nowrap;
 }
 
-/* grauer Balken für den Spruch */
+/* Spruch-Box (größer) */
 .phrase-box {
-  margin-top: 175px;
-  padding: 1rem 3rem;
+  grid-row: 2;
+  margin: 0;
+  padding: var(--phrase-pad-y) var(--phrase-pad-x);
   background: #d9d9d9;
 }
-
 .phrase-text {
   font-family: "Jersey 10", sans-serif;
-  font-size: 5rem;
+  font-size: var(--fs-phrase);
   color: #000;
   white-space: nowrap;
 }
 
+/* Confirm unten bleibt */
 .phrase-screen .confirm-text {
-  margin-top: 10rem;   /* hier kannst du die Y-Position für diese Seite ändern */
+  position: absolute;
+  bottom: clamp(18px, 3vh, 50px);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-/* Pfeile für diese Seite neu positionieren und etwas heller machen */
+/* Pfeile: weiter weg vom Spruch (mehr Abstand) */
 .phrase-screen .arrow {
   background: #000000;
-  box-shadow: 3px 3px 0 #000;
+  box-shadow: calc(var(--arrow-shadow) * 0.75) calc(var(--arrow-shadow) * 0.75) 0 #000;
 }
-
-.phrase-screen .arrow-up {
-  top: 29vh;                      /* Y-Position Pfeil hoch für diese Seite */
+.phrase-screen .arrow-up{
+  top: calc(50vh - var(--arrowOffsetPhrase));
 }
-
-.phrase-screen .arrow-down {
-  top: 60vh;                      /* Y-Position Pfeil runter für diese Seite */
+.phrase-screen .arrow-down{
+  top: calc(44vh + var(--arrowOffsetPhrase));
 }
 
 /* ===== Screen 4: Symbol-Wahl ===== */
 
-
 .symbol-screen {
   position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+
+  /* 1: Header | 2: Spacer | 3: Symbol | 4: Spacer | 5: Confirm */
+  grid-template-rows: auto 1fr auto 1fr auto;
+  justify-items: center;
   align-items: center;
-  justify-content: flex-start;
+
+  --arrowOffset: 20vh;
 }
 
-/* Symbol-Container (wo dein PNG drin liegt) */
 .symbol-box {
-  margin-top: 6rem;                 /* Abstand zum Header */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  grid-row: 3;
+  margin-top: 0;
+  transform: translateY(-5vh);
 }
 
 .symbol-image {
   max-width: 60vw;
   max-height: 40vh;
   height: auto;
-  image-rendering: pixelated;       /* 8-Bit-Vibe, falls das zum PNG passt */
+  image-rendering: pixelated;
 }
 
-/* NEUE PFEILE NUR FÜR DIE SYMBOL-SEITE */
 .symbol-arrow {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 52px;
-  height: 32px;
+  width: var(--arrow-w);
+  height: var(--arrow-h);
   background: #f8f8f8;
   border: none;
   cursor: pointer;
   z-index: 2;
-  box-shadow: 7px 7px 0 #000;      /* 8-Bit-Kantenlook wie davor */
+  box-shadow: var(--arrow-shadow) var(--arrow-shadow) 0 #000;
 }
-
-/* ▲ nach oben */
 .symbol-arrow-up {
-  top: 29vh;                        /* <<< HIER Y-POSITION OBERER PFEIL */
+  top: calc(46vh - var(--arrowOffset));
   clip-path: polygon(50% 0, 0 100%, 100% 100%);
 }
-
-/* ▼ nach unten */
 .symbol-arrow-down {
-  top: 66vh;                        /* <<< HIER Y-POSITION UNTERER PFEIL */
+  top: calc(50vh + var(--arrowOffset));
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 
-/* Confirm-Text für diese Seite ggf. etwas nach unten schieben */
-.symbol-screen .confirm-text {
-  margin-top: 2rem;                 /* hier Y-Position vom "bestätige mit" für Symbol-Seite anpassen */
-}
+.symbol-screen .confirm-text { margin-top: 2rem; }
+.symbol-screen .phrase-header{ grid-row: 1; align-self: start; }
 
 /* ===== Screen 5: Farbwahl ===== */
 
+.color-screen { position: relative; }
 .color-screen .phrase-header {
-  position: relative;
-  z-index: 3; 
-  margin-top: 0rem;        /* sitzt direkt am oberen Rand */
-  color: #ffff;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: fit-content;
 }
-
-.color-screen .mode-bottom {
-  margin-top: 170px;       /* Abstand zwischen Weiß und Schwarz – bei Bedarf anpassen */
+.color-screen .mode-bottom{
+  grid-row: 2;
+  width: 100%;
+  height: 100%;
+  margin-top: 0;
+  justify-content: center;
+  gap: 0;
 }
-
-/* Position von "Weiß" nur auf der Farb-Seite anpassen */
 .color-screen .mode-text-light {
   position: relative;
-  top: 40px;    /* Wert ändern = höher/tiefer */
+  top: clamp(10px, 3vh, 40px);
 }
-
-.color-screen .confirm-text {
-  margin-top: 40px;        /* Y-Position "bestätige mit" nur für diesen Screen */
-}
+.color-screen .confirm-text { margin-top: 0px; }
 
 /* ===== Screen 6: Präsentation / Drucken ===== */
 
-.final-screen {
-  gap: 4rem;                   /* Abstand zwischen Sticker und Button */
-}
+.final-screen { gap: 4rem; }
 
 .sticker-preview {
   max-width: 40vw;
   max-height: 40vh;
   height: auto;
-  image-rendering: pixelated;  /* bleibt im Retro-Look */
+  image-rendering: pixelated;
 }
 
-/* for printing the sticker */
 .hidden-preview {
   visibility: hidden;
   position: absolute;
@@ -382,18 +372,13 @@ html, body {
   height: 212px;
 }
 
-/* Druck-Button kann (optional) minimal kleiner sein */
-.print-button {
-  font-size: 6rem;             /* wenn dir 8rem zu fett ist */
-}
+.print-button { font-size: clamp(3rem, 4.5vw, 7rem); }
 
-/* Wrapper für Sticker + Maschine */
 .sticker-wrapper {
   position: relative;
   display: inline-block;
 }
 
-/* Einstieg: Sticker kommt von oben reingefahren */
 .sticker-preview {
   max-width: 40vw;
   max-height: 40vh;
@@ -402,53 +387,48 @@ html, body {
   animation: sticker-drop-in 0.9s cubic-bezier(0.15, 0.85, 0.25, 1) forwards;
 }
 
-/* Drop-in Animation */
 @keyframes sticker-drop-in {
-  from {
-    transform: translateY(-120vh);
-  }
-  to {
-    transform: translateY(0);
-  }
+  from { transform: translateY(-120vh); }
+  to { transform: translateY(0); }
 }
 
-/* GANZ WICHTIG: über deine .print-overlay-Regel setzen */
-.print-overlay[hidden] {
-  display: none !important;
-}
+/* Overlay */
+.print-overlay[hidden] { display: none !important; }
 
-/* Vollbild-Overlay: schwarzes Fenster */
 .print-overlay {
   position: fixed;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-    background: transparent;   /* kein schwarzer Vollbild-Hintergrund mehr */
-  z-index: 999;           /* über allem */
+  background: transparent;
+  z-index: 999;
 }
 
-/* schwarzer Container in der Mitte */
+/* Print-Window: wird auf großen Screens größer */
 .print-window {
   background: #000000;
-  padding: 15rem 25rem;
+
+  /* vorher: clamp(8rem..18rem) / clamp(10rem..28rem)
+     jetzt: deutlich größer + skaliert weiter hoch */
+  padding: clamp(10rem, 9vw, 26rem) clamp(12rem, 11vw, 38rem);
+
   border: 4px solid #000;
-  box-shadow: 8px 8px 0 #5d5d5d;   /* 8-Bit-Look */
+  box-shadow: clamp(8px, 0.9vw, 18px) clamp(8px, 0.9vw, 18px) 0 #5d5d5d;
 }
 
-/* Drucker-Container (Pixel-Look) */
+/* Drucker */
 .printer {
   position: relative;
   width: 260px;
-  height: 190px;
+  height: 250px;
+  padding-top: 40px;
   image-rendering: pixelated;
-  /* „Grundform“ */
 }
 
-/* Oberer Teil (Papierfach) */
 .printer-top {
   position: absolute;
-  top: -40px;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 140px;
@@ -457,7 +437,6 @@ html, body {
   border: 4px solid #000;
 }
 
-/* Hauptkörper */
 .printer-body {
   position: absolute;
   top: 0;
@@ -470,7 +449,6 @@ html, body {
   box-shadow: 8px 8px 0 #000;
 }
 
-/* Schlitz */
 .printer-slot {
   position: absolute;
   bottom: 24px;
@@ -482,7 +460,6 @@ html, body {
   border: 4px solid #000;
 }
 
-/* „Papier“, das raus- und reinfährt */
 .printer-paper {
   position: absolute;
   bottom: 24px;
@@ -493,11 +470,10 @@ html, body {
   background: #f5f5f5;
   border: 4px solid #000;
   overflow: hidden;
-  transform-origin: top center; 
+  transform-origin: top center;
   animation: paper-grow 3s linear forwards;
 }
 
-/* Zahnräder */
 .printer-gear {
   position: absolute;
   width: 34px;
@@ -507,18 +483,9 @@ html, body {
   box-shadow: 2px 2px 0 #e5e5e5;
   animation: gear-spin 0.6s steps(4, end) infinite;
 }
+.gear-left { left: -30px; bottom: 10px; }
+.gear-right { right: -30px; bottom: 10px; }
 
-.gear-left {
-  left: -30px;
-  bottom: 10px;
-}
-
-.gear-right {
-  right: -30px;
-  bottom: 10px;
-}
-
-/* kleine „Arme“, die sich bewegen */
 .printer-arm {
   position: absolute;
   width: 40px;
@@ -527,20 +494,9 @@ html, body {
   border: 4px solid #000;
   animation: arm-move 0.5s steps(2, end) infinite alternate;
 }
+.arm-left { left: -10px; top: 20px; transform-origin: right center; }
+.arm-right { right: -10px; top: 50px; transform-origin: left center; }
 
-.arm-left {
-  left: -10px;
-  top: 20px;
-  transform-origin: right center;
-}
-
-.arm-right {
-  right: -10px;
-  top: 50px;
-  transform-origin: left center;
-}
-
-/* Funken / Farbspritzer */
 .printer-spark {
   position: absolute;
   width: 10px;
@@ -549,79 +505,30 @@ html, body {
   border: 3px solid #000;
   animation: spark-pop 0.6s linear infinite;
 }
+.spark-1 { top: -20px; left: 10px; }
+.spark-2 { top: -30px; right: 20px; animation-delay: 0.2s; }
+.spark-3 { top: -10px; right: -10px; animation-delay: 0.4s; }
 
-.spark-1 {
-  top: -20px;
-  left: 10px;
-}
-
-.spark-2 {
-  top: -30px;
-  right: 20px;
-  animation-delay: 0.2s;
-}
-
-.spark-3 {
-  top: -10px;
-  right: -10px;
-  animation-delay: 0.4s;
-}
-
-/* Text unter dem Drucker */
 .printer-text {
   position: absolute;
-  top: 140px;                 /* bei Bedarf feintunen */
+  top: 140px;
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
   font-family: "Jersey 10", sans-serif;
-  font-size: 2.6rem;
+  font-size: clamp(2.8rem, 3vw, 5.6rem);
   color: #ffffff;
   text-align: center;
 }
 
-/* ===== Keyframes ===== */
-
-@keyframes paper-grow {
-  from {
-    height: 0px;                /* kurz */
-  }
-  to {
-    height: 120px;                /* lang – bei Bedarf anpassen */
-  }
-}
-
-@keyframes gear-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes arm-move {
-  from {
-    transform: rotate(-8deg);
-  }
-  to {
-    transform: rotate(8deg);
-  }
-}
-
+/* Keyframes */
+@keyframes paper-grow { from { height: 0px; } to { height: 120px; } }
+@keyframes gear-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes arm-move { from { transform: rotate(-8deg); } to { transform: rotate(8deg); } }
 @keyframes spark-pop {
-  0% {
-    transform: scale(0.7) translateY(0);
-    opacity: 0.6;
-  }
-  50% {
-    transform: scale(1) translateY(-6px);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(0.7) translateY(0);
-    opacity: 0.4;
-  }
+  0% { transform: scale(0.7) translateY(0); opacity: 0.6; }
+  50% { transform: scale(1) translateY(-6px); opacity: 1; }
+  100% { transform: scale(0.7) translateY(0); opacity: 0.4; }
 }
 
 /* ===== Screen 7: Gedruckt-Screen ===== */
@@ -634,8 +541,6 @@ html, body {
   gap: 3rem;
 }
 
-/* Sticker nutzt den gleichen Look wie Präsentationsseite,
-   falls du den Block schon hast, kannst du ihn wiederverwenden */
 .sticker-preview {
   max-width: 40vw;
   max-height: 40vh;
@@ -643,45 +548,27 @@ html, body {
   image-rendering: pixelated;
 }
 
-/* Text unter dem Sticker */
 .printed-text {
   margin: 0;
   font-family: "Jersey 10", sans-serif;
-  font-size: 4.5rem;
+  font-size: clamp(2.6rem, 4vw, 5.6rem);
   text-align: center;
   color: #000;
 }
 
-
-/* Auf dem Gedruckt-Screen: Sticker fährt nach unten raus */
 .printed-screen .sticker-preview {
   animation: sticker-slide-out 8s cubic-bezier(0.3, 0.0, 0.8, 1) forwards;
 }
 
-/* „kommt unten aus der Maschine“ / verschwindet nach unten */
 @keyframes sticker-slide-out {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(120vh); /* weit genug nach unten raus */
-  }
+  from { transform: translateY(0); }
+  to { transform: translateY(120vh); }
 }
 
-/* ===== Pfeil-Plopp-Animation ===== */
-
-.arrow-bump {
-  animation: arrow-bump 0.25s ease-out;
-}
-
+/* Pfeil-Plopp */
+.arrow-bump { animation: arrow-bump 0.25s ease-out; }
 @keyframes arrow-bump {
-  0% {
-    transform: translateX(-50%) scale(1);
-  }
-  50% {
-    transform: translateX(-50%) scale(1.25);
-  }
-  100% {
-    transform: translateX(-50%) scale(1);
-  }
+  0% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.25); }
+  100% { transform: translateX(-50%) scale(1); }
 }
