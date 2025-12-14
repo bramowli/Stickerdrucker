@@ -551,7 +551,7 @@ html, body {
 .printed-text {
   margin: 0;
   font-family: "Jersey 10", sans-serif;
-  font-size: clamp(2.6rem, 4vw, 5.6rem);
+  font-size: var(--fs-md);
   text-align: center;
   color: #000;
 }
