@@ -557,7 +557,7 @@ html, body {
 }
 
 .printed-screen .sticker-preview {
-  animation: sticker-slide-out 8s cubic-bezier(0.3, 0.0, 0.8, 1) forwards;
+  animation: sticker-slide-out 4s cubic-bezier(0.3, 0.0, 0.8, 1) forwards;
 }
 
 @keyframes sticker-slide-out {

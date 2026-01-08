@@ -430,7 +430,7 @@ function startPrintAndRedirect() {
   // Nach ca. 3 Sekunden zum „gedruckt“-Screen
   setTimeout(function () {
     window.location.href = 'gedruckt.html';
-  }, 3000);
+  }, 1500);
 }
 
 // Text größer/kleiner machen (Modus & Farbe)
